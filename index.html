@@ -419,13 +419,18 @@ function showQuestion(){
 
 
 /*
-  正解英文を読み上げる
+  音声合成を読み上げる
 */
 
 function speakAnswer(message){
 
   const synth =
     window.speechSynthesis;
+
+  if(!synth){
+    return;
+  }
+
 
   const uttr =
     new SpeechSynthesisUtterance(message);
@@ -434,9 +439,39 @@ function speakAnswer(message){
 
   uttr.rate = 1.0;
 
+
+  /*
+    音声合成が一時停止状態になっていた場合だけ
+    再開する
+  */
+
+  synth.resume();
+
+
+  /*
+    正解英文を読み上げる
+  */
+
   synth.speak(uttr);
 
 }
+
+
+
+/*
+  音声合成を休ませないための処理
+  ※音は一切出しません
+*/
+
+setInterval(function(){
+
+  if(window.speechSynthesis){
+
+    window.speechSynthesis.resume();
+
+  }
+
+},5000);
 
 
 
