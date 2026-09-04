@@ -204,10 +204,112 @@ let isStarting = false;
 
 
 // 判定待ちかどうか
-// 音声認識の onend が発生したら判定する
 let judgePending = false;
 
 
+
+/*
+  ==========================================
+  音声合成の準備
+  ==========================================
+*/
+
+
+let englishVoice = null;
+
+
+/*
+  ブラウザに登録されている音声を探す
+*/
+
+function prepareVoice(){
+
+  if(!window.speechSynthesis){
+    return;
+  }
+
+
+  const voices =
+    window.speechSynthesis.getVoices();
+
+
+  if(!voices || voices.length === 0){
+    return;
+  }
+
+
+  /*
+    英語の音声を優先して探す
+  */
+
+  englishVoice =
+    voices.find(function(voice){
+
+      return voice.lang === "en-US";
+
+    });
+
+
+  /*
+    en-USがなければ、
+    英語の音声を探す
+  */
+
+  if(!englishVoice){
+
+    englishVoice =
+      voices.find(function(voice){
+
+        return voice.lang &&
+               voice.lang.toLowerCase().startsWith("en");
+
+      });
+
+  }
+
+
+  console.log(
+    "英語音声:",
+    englishVoice
+  );
+
+}
+
+
+/*
+  ページを開いたときに
+  音声一覧を読み込んでおく
+*/
+
+if(window.speechSynthesis){
+
+  prepareVoice();
+
+
+  /*
+    Chromeなどでは、
+    ページを開いた直後は音声一覧が
+    まだ準備されていないことがあります。
+
+    voiceschangedが発生したら再取得します。
+  */
+
+  window.speechSynthesis.onvoiceschanged =
+    function(){
+
+      prepareVoice();
+
+    };
+
+}
+
+
+
+/*
+  ==========================================
+  文字の正規化
+  ==========================================
+*/
 
 function normalize(text){
 
@@ -219,6 +321,12 @@ function normalize(text){
 }
 
 
+
+/*
+  ==========================================
+  音声認識
+  ==========================================
+*/
 
 const SpeechRecognition =
   window.SpeechRecognition ||
@@ -285,10 +393,7 @@ if(SpeechRecognition){
 
 
     /*
-      「判定」ボタンが押されていて、
-      判定待ちなら、
-      音声認識が完全に終了したこのタイミングで
-      judge()を実行する。
+      判定待ちなら判定
     */
 
     if(judgePending){
@@ -303,9 +408,8 @@ if(SpeechRecognition){
 
 
     /*
-      「判定」ではなく、
       まだ問題に答えている途中なら
-      自動的にもう一度聞き始める。
+      自動的に再スタート
     */
 
     if(shouldListen && !isJudging){
@@ -336,21 +440,12 @@ if(SpeechRecognition){
     isStarting = false;
 
 
-    /*
-      no-speechの場合
-      onendで判定または再スタートする。
-    */
-
     if(event.error === "no-speech"){
 
       return;
 
     }
 
-
-    /*
-      マイクの使用が拒否された場合
-    */
 
     if(
       event.error === "not-allowed" ||
@@ -373,10 +468,6 @@ if(SpeechRecognition){
 
     }
 
-
-    /*
-      その他のエラー
-    */
 
     if(!isJudging){
 
@@ -401,6 +492,12 @@ if(SpeechRecognition){
 
 
 
+/*
+  ==========================================
+  問題表示
+  ==========================================
+*/
+
 function showQuestion(){
 
   document.getElementById("ja").innerText =
@@ -419,7 +516,9 @@ function showQuestion(){
 
 
 /*
-  音声合成を読み上げる
+  ==========================================
+  正解英文を読み上げる
+  ==========================================
 */
 
 function speakAnswer(message){
@@ -432,6 +531,28 @@ function speakAnswer(message){
   }
 
 
+  /*
+    音声一覧を念のため確認
+  */
+
+  prepareVoice();
+
+
+  /*
+    音声合成が停止状態になっていたら再開
+  */
+
+  synth.resume();
+
+
+  /*
+    前の読み上げが残っていれば
+    新しい読み上げだけにする
+  */
+
+  synth.cancel();
+
+
   const uttr =
     new SpeechSynthesisUtterance(message);
 
@@ -441,11 +562,15 @@ function speakAnswer(message){
 
 
   /*
-    音声合成が一時停止状態になっていた場合だけ
-    再開する
+    英語音声が見つかっていれば
+    明示的に指定する
   */
 
-  synth.resume();
+  if(englishVoice){
+
+    uttr.voice = englishVoice;
+
+  }
 
 
   /*
@@ -459,24 +584,9 @@ function speakAnswer(message){
 
 
 /*
-  音声合成を休ませないための処理
-  ※音は一切出しません
-*/
-
-setInterval(function(){
-
-  if(window.speechSynthesis){
-
-    window.speechSynthesis.resume();
-
-  }
-
-},5000);
-
-
-
-/*
-  実際に音声認識を開始する処理
+  ==========================================
+  音声認識開始
+  ==========================================
 */
 
 function startRecognition(){
@@ -507,14 +617,6 @@ function startRecognition(){
 
   }catch(error){
 
-    /*
-      Android Chromeなどでは、
-      前の認識処理が完全に終了する前に
-      start()するとエラーになることがあります。
-
-      その場合は少し待ってから再試行します。
-    */
-
     console.log(
       "音声認識開始エラー:",
       error
@@ -540,13 +642,33 @@ function startRecognition(){
 
 
 /*
-  「マイクを許可」ボタン
+  ==========================================
+  「マイクを許可」
+  ==========================================
 */
 
 function start(){
 
   if(!speech){
     return;
+  }
+
+
+  /*
+    ★ここで音声一覧を準備する
+  */
+
+  prepareVoice();
+
+
+  /*
+    音声合成が一時停止状態なら再開
+  */
+
+  if(window.speechSynthesis){
+
+    window.speechSynthesis.resume();
+
   }
 
 
@@ -563,10 +685,6 @@ function start(){
   latestText = "";
 
 
-  /*
-    画面に表示されていたエラーメッセージを消す
-  */
-
   document.getElementById(
     "result"
   ).innerText = "";
@@ -579,25 +697,16 @@ function start(){
 
 
 /*
-  「判定」ボタン
+  ==========================================
+  「判定」
+  ==========================================
 */
 
 function stop(){
 
-  /*
-    ここで自動再スタートを止める
-  */
-
   shouldListen = false;
 
   isJudging = true;
-
-
-  /*
-    判定待ちにする。
-    実際のjudge()は、
-    音声認識のonendで実行する。
-  */
 
   judgePending = true;
 
@@ -621,7 +730,9 @@ function stop(){
 
 
 /*
+  ==========================================
   実際の判定
+  ==========================================
 */
 
 function judge(){
@@ -689,29 +800,25 @@ function judge(){
 
 
 /*
+  ==========================================
   次の問題
+  ==========================================
 */
 
 function nextQuestion(){
 
   /*
-    前の問題の読み上げが残っていた場合は
-    ここで停止する。
+    前の問題の読み上げを停止
   */
 
-  speechSynthesis.cancel();
+  if(window.speechSynthesis){
 
+    window.speechSynthesis.cancel();
 
-  /*
-    判定待ちを解除
-  */
+  }
+
 
   judgePending = false;
-
-
-  /*
-    現在の音声認識を止める
-  */
 
   shouldListen = false;
 
@@ -762,11 +869,6 @@ function nextQuestion(){
       showQuestion();
 
 
-      /*
-        最初の問題に戻ったので
-        マイクボタンを表示
-      */
-
       document.getElementById(
         "micButton"
       ).style.display = "block";
@@ -781,10 +883,6 @@ function nextQuestion(){
 
   showQuestion();
 
-
-  /*
-    次の問題のマイクを開始
-  */
 
   setTimeout(function(){
 
@@ -801,10 +899,19 @@ function nextQuestion(){
 
 
 /*
+  ==========================================
   「もう一回聞く」
+  ==========================================
 */
 
 function repeatAudio(){
+
+  /*
+    ★ここでも音声を準備してから再生
+  */
+
+  prepareVoice();
+
 
   speakAnswer(
     currentData[current].en
@@ -815,15 +922,12 @@ function repeatAudio(){
 
 
 /*
+  ==========================================
   問題を切り替えたとき
+  ==========================================
 */
 
 function changeUnit(){
-
-  /*
-    問題を切り替えるので
-    音声認識を一度止める
-  */
 
   judgePending = false;
 
@@ -875,10 +979,6 @@ function changeUnit(){
   showQuestion();
 
 
-  /*
-    マイクボタンを再表示
-  */
-
   document.getElementById(
     "micButton"
   ).style.display = "block";
@@ -888,7 +988,9 @@ function changeUnit(){
 
 
 /*
-  最初の問題を表示
+  ==========================================
+  最初の問題
+  ==========================================
 */
 
 showQuestion();
