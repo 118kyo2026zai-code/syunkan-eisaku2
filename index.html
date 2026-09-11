@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -74,6 +75,8 @@ body{
 }
 
 
+/* ユニット選択 */
+
 #unitSelect{
   width:220px;
   font-size:24px;
@@ -83,6 +86,30 @@ body{
 }
 
 
+/* 音声スピード */
+
+#speedArea{
+  margin:10px auto 20px auto;
+  font-size:22px;
+  font-weight:bold;
+}
+
+#speedArea label{
+  margin:0 8px;
+  font-weight:normal;
+  cursor:pointer;
+}
+
+#speedArea input{
+  width:auto;
+  margin:0 5px 0 0;
+  padding:0;
+  display:inline;
+}
+
+
+/* 日本語問題 */
+
 #ja{
   font-size:45px;
   font-weight:bold;
@@ -90,6 +117,8 @@ body{
   line-height:1.4;
 }
 
+
+/* 正解英文 */
 
 #answer{
   margin-top:10px;
@@ -155,6 +184,15 @@ button{
     font-size:34px;
   }
 
+  #speedArea{
+    font-size:20px;
+    margin-bottom:15px;
+  }
+
+  #speedArea label{
+    margin:0 4px;
+  }
+
   #ja{
     font-size:20px;
   }
@@ -180,10 +218,10 @@ button{
 }
 
 </style>
+
 </head>
 
 <body>
-
 
 <!-- 最初の準備画面 -->
 
@@ -193,37 +231,29 @@ button{
     準備
   </div>
 
+<button
+ id="voiceCheckButton"
+ class="setupButton"
+ onclick="checkVoice()">
+音声を確認 </button>
 
-  <button
-    id="voiceCheckButton"
-    class="setupButton"
-    onclick="checkVoice()">
-    音声を確認
-  </button>
+<button
+ id="micButton"
+ class="setupButton"
+ onclick="allowMicrophone()"
+ style="display:none;">
+マイクを許可 </button>
 
-
-  <button
-    id="micButton"
-    class="setupButton"
-    onclick="allowMicrophone()"
-    style="display:none;">
-    マイクを許可
-  </button>
-
-
-  <button
-    id="startPracticeButton"
-    class="setupButton"
-    onclick="startPractice()"
-    style="display:none;">
-    練習を始める
-  </button>
-
+<button
+ id="startPracticeButton"
+ class="setupButton"
+ onclick="startPractice()"
+ style="display:none;">
+練習を始める </button>
 
   <div id="setupStatus"></div>
 
 </div>
-
 
 <!-- 実際の練習画面 -->
 
@@ -231,18 +261,46 @@ button{
 
   <select id="unitSelect" onchange="changeUnit()">
 
-    <option value="all">全部</option>
+```
+<option value="all">全部</option>
 
-    <option value="肯定文第三文型">肯定文第三文型</option>
+<option value="肯定文第三文型">肯定文第三文型</option>
 
-    <option value="疑問文第三文型">疑問文第三文型</option>
+<option value="疑問文第三文型">疑問文第三文型</option>
 
-    <option value="命令文第三文型">命令文第三文型</option>
+<option value="命令文第三文型">命令文第三文型</option>
 
-    <option value="疑問詞③">疑問詞③</option>
+<option value="疑問詞③">疑問詞③</option>
+```
 
   </select>
 
+  <!-- 音声スピード選択 -->
+
+  <div id="speedArea">
+
+```
+音声スピード：
+
+<label>
+  <input
+    type="radio"
+    name="speechSpeed"
+    value="1.0"
+    checked>
+  ナチュラル
+</label>
+
+<label>
+  <input
+    type="radio"
+    name="speechSpeed"
+    value="0.75">
+  ゆっくり
+</label>
+```
+
+  </div>
 
   <h2 id="ja"></h2>
 
@@ -250,29 +308,28 @@ button{
 
   <div id="answer"></div>
 
+<input
+id="voiceText"
+type="text"
+placeholder="ここに認識結果が表示されます"
 
-  <input
-    id="voiceText"
-    type="text"
-    placeholder="ここに認識結果が表示されます"
-  >
-
+>
 
   <div class="button-area">
 
-    <button onclick="stop()">判定</button>
+```
+<button onclick="stop()">判定</button>
 
-    <button onclick="nextQuestion()">次の問題</button>
+<button onclick="nextQuestion()">次の問題</button>
 
-    <button onclick="repeatAudio()">もう一回聞く</button>
+<button onclick="repeatAudio()">もう一回聞く</button>
+```
 
   </div>
 
 </div>
 
-
 <script src="data.js"></script>
-
 
 <script>
 
@@ -318,6 +375,31 @@ function normalize(text){
     .toLowerCase()
     .replace(/[.,!?]/g,"")
     .trim();
+
+}
+
+
+
+/*
+  選択されている音声スピードを取得
+*/
+
+function getSpeechRate(){
+
+  const selected =
+    document.querySelector(
+      'input[name="speechSpeed"]:checked'
+    );
+
+
+  if(selected){
+
+    return parseFloat(selected.value);
+
+  }
+
+
+  return 1.0;
 
 }
 
@@ -775,13 +857,29 @@ function speakAnswer(message){
     window.speechSynthesis;
 
 
+  /*
+    現在選択されている
+    音声スピードを取得
+  */
+
+  const rate =
+    getSpeechRate();
+
+
+  /*
+    すでに読み上げ中なら一度停止
+  */
+
+  synth.cancel();
+
+
   const utterance =
     new SpeechSynthesisUtterance(message);
 
 
   utterance.lang = "en-US";
 
-  utterance.rate = 1.0;
+  utterance.rate = rate;
 
 
   synth.speak(utterance);
