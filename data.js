@@ -239,6 +239,49 @@ const data = [
 {unit:"疑問詞③", ja:"箱の中に何がありますか。", en:"What is in the box?"},
 {unit:"疑問詞③", ja:"誰が速く走りますか。", en:"Who runs fast?"}
 ,
+     /*主語＋be動詞＋名詞肯定文*/
+{unit:"主語＋be動詞＋名詞肯定文",ja:"僕は大輝です",en:"I am Taiki."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"僕は学生です",en:"I am a student."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"私たちは学生です",en:"We are students."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"あなたは先生です",en:"You are a teacher."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"あなたたちは医者です",en:"You are doctors."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"彼は僕の友だちです",en:"He is my friend."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"彼女はテニスの選手です",en:"She is a tennis player."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"彼ら（彼女ら）はダンサーです",en:"They are dancers."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"これはペンです",en:"This is a pen."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"こちらはゲイジ先生です",en:"This is Mr. Gage."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"それはリンゴです",en:"That is an apple."},
+{unit:"主語＋be動詞＋名詞肯定文",ja:"あれは本です",en:"That is a book."},
+
+
+/*主語＋be動詞＋名詞否定文*/
+{unit:"主語＋be動詞＋名詞否定文",ja:"僕は大輝ではありません",en:"I am not Taiki."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"僕は学生ではありません",en:"I am not a student."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"私たちは学生ではありません",en:"We are not students."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"あなたは先生ではありません",en:"You are not a teacher."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"あなたたちは医者ではありません",en:"You are not doctors."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"彼は僕の友だちではありません",en:"He is not my friend."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"彼女はテニスの選手ではありません",en:"She is not a tennis player."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"彼ら（彼女ら）はダンサーではありません",en:"They are not dancers."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"これはペンではありません",en:"This is not a pen."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"こちらはゲイジ先生ではありません",en:"This is not Mr. Gage."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"それはリンゴではありません",en:"That is not an apple."},
+{unit:"主語＋be動詞＋名詞否定文",ja:"あれは本ではありません",en:"That is not a book."},
+
+/*主語＋be動詞＋名詞疑問文*/
+ {unit:"主語＋be動詞＋名詞疑問文",ja:"僕は大輝ですか？",en:"Am I Taiki?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"僕は学生ですか？",en:"Am I a student?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"私たちは学生ですか？",en:"Are we students?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"あなたは先生ですか？",en:"Are you a teacher?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"あなたたちは医者ですか？",en:"Are you doctors?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"彼は僕の友だちですか？",en:"Is he my friend?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"彼女はテニスの選手ですか？",en:"Is she a tennis player?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"彼ら（彼女ら）はダンサーですか？",en:"Are they dancers?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"これはペンですか？",en:"Is this a pen?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"こちらはゲイジ先生ですか？",en:"Is this Mr. Gage?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"それはリンゴですか？",en:"Is that an apple?"},
+{unit:"主語＋be動詞＋名詞疑問文",ja:"あれは本ですか？",en:"Is that a book?"},   
+ 
   ];
 
 
