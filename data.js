@@ -46,6 +46,36 @@ const data = [
     
 {unit:"肯定文第三文型",ja:"私は一冊の本を読みます",en:"I read a book."},
 
+    {unit:"肯定文第三文型",ja:"私はブレイクダンスを練習します。",en:"I practice breakdancing."},
+{unit:"肯定文第三文型",ja:"私はミーティングを始めます。",en:"I begin the meeting."},
+{unit:"肯定文第三文型",ja:"私はあなたを必要とします。",en:"I need you."},
+{unit:"肯定文第三文型",ja:"私はそう考えます。",en:"I think so."},
+{unit:"肯定文第三文型",ja:"私はプレゼントをあげます。",en:"I give presents."},
+{unit:"肯定文第三文型",ja:"私は英語を学びます。",en:"I learn English."},
+{unit:"肯定文第三文型",ja:"私は絵に色を塗ります。",en:"I paint a picture."},
+{unit:"肯定文第三文型",ja:"私はお金を持っています。",en:"I have money."},
+{unit:"肯定文第三文型",ja:"私はブレイクダンスが好きです。",en:"I like breakdancing."},
+{unit:"肯定文第三文型",ja:"私はアイスクリームを買います。",en:"I buy ice cream."},
+{unit:"肯定文第三文型",ja:"私はそれを知っています。",en:"I know that."},
+{unit:"肯定文第三文型",ja:"私は新しいゲームを手に入れます。",en:"I get a new game."},
+{unit:"肯定文第三文型",ja:"私は歌を歌います。",en:"I sing a song."},
+{unit:"肯定文第三文型",ja:"私はお菓子を分けます。",en:"I share snacks."},
+{unit:"肯定文第三文型",ja:"私は自転車が欲しいです。",en:"I want a bike."},
+
+     /*肯定文*/
+
+{unit:"肯定文",ja:"私は友だちを待ちます。",en:"I wait for my friends."},
+{unit:"肯定文",ja:"私は登山をします。",en:"I go mountain climbing."},
+{unit:"肯定文",ja:"私は泳ぎます。",en:"I swim."},
+{unit:"肯定文",ja:"私は歩きます。",en:"I walk."},
+{unit:"肯定文",ja:"私は走ります。",en:"I run."},
+{unit:"肯定文",ja:"私は働きます。",en:"I work."},
+{unit:"肯定文",ja:"私は眠ります。",en:"I sleep."},
+{unit:"肯定文",ja:"私は起きます。",en:"I get up."},
+{unit:"肯定文",ja:"私は目覚めます。",en:"I wake up."},
+{unit:"肯定文",ja:"私はブレイキンを踊ります。",en:"I breakdance."},
+{unit:"肯定文",ja:"私は泣きます。",en:"I cry."},
+
 
 /* 疑問文第三文型 */
 
@@ -91,10 +121,41 @@ const data = [
 
 {unit:"疑問文第三文型",ja:"あなたはあなたの滞在を楽しみますか？",en:"Do you enjoy your stay?"},
 
-{unit:"疑問文第三文型",ja:"あなたは本を一冊読みますか？",en:"Do you read a book?"},
+{unit:"疑問文第三文型",ja:"あなたは本を一冊読みますか？",en:"Do you read a book?"},{unit:"疑問文第三文型",ja:"ブレイクダンスを練習しますか？",en:"Do you practice breakdancing?"},
+{unit:"疑問文第三文型",ja:"ミーティングを始めますか？",en:"Do you begin the meeting?"},
+
+{unit:"疑問文第三文型",ja:"お金を持っていますか？",en:"Do you have money?"},
+{unit:"疑問文第三文型",ja:"ブレイクダンスが好きですか？",en:"Do you like breakdancing?"},
+{unit:"疑問文第三文型",ja:"アイスクリームを買いますか？",en:"Do you buy ice cream?"},
+{unit:"疑問文第三文型",ja:"それを知っていますか？",en:"Do you know it?"},
+{unit:"疑問文第三文型",ja:"新しいゲームを手に入れますか？",en:"Do you get a new game?"},
+{unit:"疑問文第三文型",ja:"歌を歌いますか？",en:"Do you sing a song?"},
+{unit:"疑問文第三文型",ja:"お菓子を分けますか？",en:"Do you share snacks?"},
+{unit:"疑問文第三文型",ja:"自転車が欲しいですか？",en:"Do you want a bike?"},
+    {unit:"疑問文第三文型",ja:"それを必要としますか？",en:"Do you need it?"},
+{unit:"疑問文第三文型",ja:"そう考えますか？",en:"Do you think so?"},
+{unit:"疑問文第三文型",ja:"プレゼントをあげますか？",en:"Do you give presents?"},
+{unit:"疑問文第三文型",ja:"英語を学びますか？",en:"Do you learn English?"},
+{unit:"疑問文第三文型",ja:"絵に色を塗りますか？",en:"Do you paint pictures?"},
+
+     /*疑問文*/
+{unit:"疑問文",ja:"友だちを待ちますか？",en:"Do you wait for your friends?"},
+{unit:"疑問文",ja:"登山をしますか？",en:"Do you hike?"},
+{unit:"疑問文",ja:"泳ぎますか？",en:"Do you swim?"},
+{unit:"疑問文",ja:"歩きますか？",en:"Do you walk?"},
+{unit:"疑問文",ja:"走りますか？",en:"Do you run?"},
+{unit:"疑問文",ja:"働きますか？",en:"Do you work?"},
+{unit:"疑問文",ja:"眠りますか？",en:"Do you sleep?"},
+{unit:"疑問文",ja:"起きますか？",en:"Do you get up?"},
+{unit:"疑問文",ja:"目覚めますか？",en:"Do you wake up?"},
+{unit:"疑問文",ja:"ブレイキンを踊りますか？",en:"Do you breakdance?"},
+{unit:"疑問文",ja:"泣きますか？",en:"Do you cry?"},
 
 
     /* 命令文第三文型 */
+   
+
+{unit:"命令文第三文型",ja:"お菓子を分けて！",en:"Share the snacks!"},
 
 {unit:"命令文第三文型",ja:"宿題をしなさい",en:"Do your homework."},
 
@@ -133,6 +194,32 @@ const data = [
 {unit:"命令文第三文型",ja:"あなたの滞在を楽しみなさい",en:"Enjoy your stay."},
 
 {unit:"命令文第三文型",ja:"本を一冊読みなさい",en:"Read a book."},
+     {unit:"命令文第三文型",ja:"ブレイクダンスを練習して！",en:"Practice breakdancing!"},
+{unit:"命令文第三文型",ja:"ミーティングを始めて！",en:"Begin the meeting!"},
+    {unit:"命令文第三文型",ja:"ブレイキンを踊って！",en:"Do breaking!"},
+{unit:"命令文第三文型",ja:"歌を歌って！",en:"Sing a song!"},
+    {unit:"命令文第三文型",ja:"色を塗って！",en:"Paint it!"},
+    {unit:"命令文第三文型",ja:"新しいゲームを手に入れなさい！",en:"Get a new game!"},
+
+{unit:"命令文第三文型",ja:"アイスクリームを買って！",en:"Buy some ice cream!"},
+{unit:"命令文第三文型",ja:"プレゼントをあげて！",en:"Give a present!"},
+{unit:"命令文第三文型",ja:"英語を学んで！",en:"Learn English!"},
+
+   
+{unit:"命令文第三文型",ja:"泣いて！",en:"Cry!"},
+
+    /*命令文*/
+     {unit:"命令文",ja:"待って！",en:"Wait!"},
+
+{unit:"命令文",ja:"泳いで！",en:"Swim!"},
+
+{unit:"命令文",ja:"歩いて！",en:"Walk!"},
+{unit:"命令文",ja:"走って！",en:"Run!"},
+{unit:"命令文",ja:"働いて！",en:"Work!"},
+{unit:"命令文",ja:"眠って！",en:"Sleep!"},
+{unit:"命令文",ja:"起きて！",en:"Get up!"},
+{unit:"命令文",ja:"目覚めて！",en:"Wake up!"},
+
 
     /*疑問詞③*/
     {unit:"疑問詞③", ja:"あなたはどの教科が好きですか。", en:"What subject do you like?"},
